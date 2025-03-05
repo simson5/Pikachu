@@ -1,17 +1,17 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import {ApiService} from '../services/ApiService.js';
+import {BoosterService} from '../services/BoosterService.js';
 import SetCard from './SetCard.vue';
 
 
 const boosters = ref([]);
 
-const apiService = new ApiService("https://api.tcgdex.net/v2/fr/sets/");
+const boosterService = new BoosterService("https://67b8eac151192bd378dc35a6.mockapi.io/boosters");
 //https://67b8eac151192bd378dc35a6.mockapi.io/boosters
 //https://api.tcgdex.net/v2/fr/sets/
 
 const fetcheBooster = async () => {
-    boosters.value = await apiService.getCards("");
+    boosters.value = await boosterService.getBoosters();
     console.log(boosters.value);
 }
 
