@@ -5,7 +5,7 @@ export class CardService {
     apiService;
 
     constructor(url) {
-        this.baseUrl = url;
+        this.baseUrl = url || "https://api.tcgdex.net/v2/fr/cards/";
         this.apiService = new ApiService(this.baseUrl);
     }
 

@@ -16,7 +16,7 @@ export class ApiService {
         }
 
         const cards = await reponse.json();
-        console.log(cards, "simoni");
+        console.log(cards, "les cartes recuperees");
         return cards;
     }
 
