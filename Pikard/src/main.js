@@ -20,6 +20,7 @@ const routes = [
   { path: '/allCards', component: AllCards },
   { path: '/allCards/:id', component: CardDetail },
   { path: '/myDecks', component: MyDecks },
+  //{ path: '/myDecks/:id', component: SetDeck },
   { path: '/openABooster', component: OpenABooster },
   { path: '/openABooster/:id', component: BoosterOpening },
 ];

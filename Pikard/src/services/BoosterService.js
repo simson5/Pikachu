@@ -1,5 +1,4 @@
 import { ApiService } from "./ApiService";
-import { CardService } from "./CardService";
 
 export class BoosterService {
     urlBase;
