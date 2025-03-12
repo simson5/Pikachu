@@ -11,7 +11,7 @@ const id = route.params.id;
 console.log(id);
 
 const fetchDeck = async() => {
-    deck.value = await deckService.getDeckById(id-1);
+    deck.value = await deckService.getDeckById(id);
     console.log(deck.value, "deck recupéré");
 }
 
