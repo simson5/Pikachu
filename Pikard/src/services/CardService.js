@@ -13,11 +13,15 @@ export class CardService {
         return this.apiService;
     }
 
-    async getCards() {
-        return await this.apiService.getCards("");
+    async getCards(page, cardPerPage) {
+        return await this.apiService.getCards("?pagination:page="+page+"&pagination:itemsPerPage="+cardPerPage);
+    }
+
+    async getCardsByName(name) {
+        return await this.apiService.getCards("?name=like:"+name);
     }
 
     async getCard(id) {
-        return await this.apiService.getCards(id);
+        return await this.apiService.getCards("/"+id);
     }
 }
