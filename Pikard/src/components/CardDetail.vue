@@ -5,7 +5,6 @@ import { CardService } from '../services/CardService.js';
 
 
 const card = ref([]);
-const image = "";
 const route = useRoute();
 const id = route.params.id;
 console.log(id);

@@ -12,7 +12,8 @@ export class ApiService {
             throw new Error(`Erreur HTTP : ${response.status}`);
         }
 
-        const cards = await response.json();
+        const cards = await reponse.json();
+        console.log(cards, "les cartes recuperees");
         return cards;
     }
 

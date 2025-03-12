@@ -1,14 +1,17 @@
 <script setup>
 import { defineProps } from 'vue';
 
-defineProps(['cardePika']);
+const p = defineProps(['card']);
+console.log(p, "props");
+console.log(p.id, "id card");
 </script>
 
 <template>
-    <RouterLink :to="`/allCards/${cardePika.id}`">
+    <RouterLink :to="`/allCards/${card.id}`">
         <div class="card">
-            <h1>Pika card</h1>
-            <p>{{ cardePika.name }}</p>
+            <h1>Card</h1>
+            <img :src="`${card.image}/high.png`" alt="image non charger" class="card-image" />
+            <p>{{ card.name }}</p>
         </div>
     </RouterLink>
 </template>
@@ -18,7 +21,7 @@ defineProps(['cardePika']);
     border: 1px solid black;
     padding: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     width: 250px;
     height: 250px;
