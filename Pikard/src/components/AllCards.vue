@@ -19,19 +19,13 @@ onMounted(fetchCards);
 <template>
     <h1>All cards</h1>
 
-    <h3 v-if="allCards.length">ya {{ allCards.length }} cartes</h3>
-    <!-- <ul>
-        <li v-for="carde in allCards" :key="carde.id">
-            <p>{{ carde.name }}</p>
-            <p>simoni</p>
-        </li>
-    </ul> -->
+    <h3 v-if="allCards.length">Il y a {{ allCards.length }} cartes</h3>
 
     <div class="container">
         <Card v-if="allCards.length" v-for="card in allCards" :key="card.id" :card="card" />
 
         <h3 v-else>
-            wait a moment
+            Wait a moment
         </h3>
     </div>
 

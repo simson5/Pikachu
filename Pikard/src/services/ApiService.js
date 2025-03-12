@@ -5,27 +5,21 @@ export class ApiService {
         this.baseUrl = url;
     }
 
-    // truc pour completer l'url
-    // ca peut etre plusieur ou un seul donc foudra preciser avec id 
-    async getCards(truc) {
-        //console.log(this.baseUrl+truc);
-        const reponse = await fetch(this.baseUrl+truc);
+    async getCards(param) {
+        const response = await fetch(this.baseUrl+param);
 
-        if (!reponse.ok) {
-            throw new Error(`Erreur HTTP : ${reponse.status}`);
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP : ${response.status}`);
         }
 
-        const cards = await reponse.json();
-        //console.log(pikas);
+        const cards = await response.json();
         return cards;
     }
 
-    // pika = {} un JSON
-    // truc pour completer l'url
-    async postCards(card, mth, truc) {
-        console.log(this.baseUrl+truc);
-        const reponse = await fetch(this.baseUrl+truc, {
-             method: mth,
+    async postCards(card, method, id) {
+        console.log(this.baseUrl+id);
+        const reponse = await fetch(this.baseUrl+id, {
+             method: method,
              headers: {"Content-Type": "application/json"}, 
              body: JSON.stringify(card)
             });
@@ -38,30 +32,10 @@ export class ApiService {
         console.log(cards);
         return cards;
     }
-
-    // // truc va comprendre un id precise aussi pour identifier
-    // async putPikas(pika, truc) {
-    //     console.log(this.baseUrl+truc);
-    //     const reponse = await fetch(this.baseUrl+truc, {
-    //          method: "PUT",
-    //          headers: {"Content-Type": "application/json"}, 
-    //          body: JSON.stringify(pika)
-    //         });
-
-    //     if (!reponse.ok) {
-    //         throw new Error(`Erreur HTTP : ${reponse.status}`);
-    //     }
-        
-    //     const pikas = await reponse.json();
-    //     console.log(pikas);
-    //     return pikas;
-    // }
-
     
-    // truc va comprendre un id precise aussi pour identifier
-    async deleteCards(truc) {
-        console.log(this.baseUrl+truc);
-        const reponse = await fetch(this.baseUrl+truc, { method: "DELETE" });
+    async deleteCards(id) {
+        console.log(this.baseUrl+id);
+        const reponse = await fetch(this.baseUrl+id, { method: "DELETE" });
 
         if (!reponse.ok) {
             throw new Error(`Erreur HTTP : ${reponse.status}`);

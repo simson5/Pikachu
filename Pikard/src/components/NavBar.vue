@@ -1,25 +1,37 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
+import getLinks from '../services/LienService';
+
+const liens = ref([]);
+
+onMounted(async () => {
+    try {
+        console.log("Chargement des liens...");
+        liens.value = getLinks();
+        console.log("Liens chargés :", liens.value);
+    } catch (error) {
+        console.error("Erreur lors du chargement des liens :", error);
+    }
+});
 </script>
 
 <template>
-    <nav class="nav">
-        <RouterLink to="/"><div class="it">vide</div></RouterLink>
-        <RouterLink to="/home"><div class="it">Home</div></RouterLink>
-        <RouterLink to="/allCards"><div class="it">All cards</div></RouterLink>
-        <RouterLink to="/myDecks"><div class="it">My decks</div></RouterLink>
-        <RouterLink to="/openABooster"><div class="it">Open a booster</div></RouterLink>
+    <nav class="nav" v-if="liens.length">
+        <RouterLink v-for="lien in liens" :key="lien.path" :to="lien.path">
+            <div class="it">{{ lien.name }}</div>
+        </RouterLink>
     </nav>
 </template>
 
 <style scoped>
 .nav {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     background-color: green;
 }
-.nav .it {
-    /*flex : 1;*/
+
+.nav .it { 
     text-align: center;
     border: 1px solid black;
     padding-top: 30px;

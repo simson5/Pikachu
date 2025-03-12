@@ -9,14 +9,12 @@ import MyDecks from './components/MyDecks.vue';
 import OpenABooster from './components/OpenABooster.vue';
 import CardDetail from './components/CardDetail.vue';
 import BoosterOpening from './components/BoosterOpening.vue';
-import WelcomeHome from './components/WelcomeHome.vue';
 
 
 //name: 'list' je sais plus a qoui ca sert
 
 const routes = [
-  { path: '/', component: WelcomeHome },
-  { path: '/home', component: Home },
+  { path: '/', component: Home },
   { path: '/allCards', component: AllCards },
   { path: '/allCards/:id', component: CardDetail },
   { path: '/myDecks', component: MyDecks },

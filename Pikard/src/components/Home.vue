@@ -11,12 +11,12 @@ home.value = localStorageP.getLocalStorageCards();
 <template>
     <h1>Home</h1>
     <div class="container">
-        <div class="card" v-if = "home.length!=0" v-for="cart in home" :key="cart?.id">
-            <p v-if="cart!=null">nom de cart : {{ cart.name }}</p>
-            <p v-if="cart!=null">nombre de occurence : {{ cart.occ }}</p>
-            <img v-if="cart!=null" :src="`${cart.image}/high.png`" alt="image non charger" class="card-image" />
+        <div class="card" v-if = "home.length!=0" v-for="carte in home" :key="carte?.id">
+            <p v-if="carte!=null">nom de cart : {{ carte.name }}</p>
+            <p v-if="carte!=null">nombre de occurence : {{ carte.occ }}</p>
+            <img v-if="carte!=null" :src="`${carte.image}/high.png`" alt="image non charger" class="card-image" />
         </div>
-        <p v-else>pas de cart pour l'instant</p>
+        <p v-else>pas de carte pour l'instant</p>
     </div>
 </template>
 

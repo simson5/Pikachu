@@ -26,9 +26,9 @@ onMounted(fetchOpening);
     <h2 v-if = "opening==undefined">opening pas defini</h2>
     <p v-else>nombre d'element trouver : {{ opening.length }}</p>
     <div class="container">
-        <div class="card" v-if = "opening.length!=0" v-for="cart in opening" :key="cart?.id">
-            <p v-if="cart!=null">{{ cart.name }}</p>
-            <img v-if="cart!=null" :src="`${cart.image}/high.png`" alt="image non charger" class="card-image" />
+        <div class="card" v-if = "opening.length!=0" v-for="carte in opening" :key="carte?.id">
+            <p v-if="carte!=null">{{ carte.name }}</p>
+            <img v-if="carte!=null" :src="`${carte.image}/high.png`" alt="image non charger" class="card-image" />
         </div>
 
         <p v-else>Chargement...</p>
