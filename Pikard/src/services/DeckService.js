@@ -31,8 +31,8 @@ export class DeckService {
         console.log(id, "id");
         console.log(deck, "deck");
         for (let i = 0; i < deck[id].cards.length; i++) {
-            console.log(deck[id].cards[i]);
-            cardDeck.push(await this.cardService.getCard(deck[id].cards[i]));
+            console.log(deck[id].cards[i], "cart ds for");
+            cardDeck.push(await this.cardService.getCard("/"+deck[id].cards[i]));
         }
         console.log(cardDeck, "cardDeck");
         
