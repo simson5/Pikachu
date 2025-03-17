@@ -53,4 +53,8 @@ export class DeckService {
     addCardInDeck(card, id) {
         return this.apiService.postCards(card, "PUT", id);
     }
+
+    async rechercheCard(name) {
+        return await this.cardService.getCardsByName(name);
+    }
 }

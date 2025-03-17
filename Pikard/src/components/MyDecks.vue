@@ -18,6 +18,8 @@ onMounted(fetchDeck);
 <template>
     <h1>My decks</h1>
     <p v-if="decks.length"> il y a {{ decks.length }} decks disponibles </p>
+    <!-- <button type="submit">ajouter deck</button> -->
+    <RouterLink to="/deckAdd">Ajouter un deck</RouterLink>
 
     <SetDeck v-if="decks.length" v-for="deck in decks" :deck="deck" :decks="decks" :key="deck.id" />
 
