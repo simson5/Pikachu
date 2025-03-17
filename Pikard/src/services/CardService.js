@@ -21,8 +21,8 @@ export class CardService {
         return await this.apiService.getCards(id);
     }
 
-    async getCardsByName(name) {
-        console.log(name.name);
-        return await this.apiService.getCards("?name=like:"+name.name);
+    async getCardsByName(velur) {
+        //console.log(name.name);
+        return await this.apiService.getCards("?name=like:"+velur);
     }
 }

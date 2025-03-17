@@ -55,6 +55,7 @@ export class DeckService {
     }
 
     async rechercheCard(name) {
-        return await this.cardService.getCardsByName(name);
+        console.log(name._value, "nom de recherch")
+        return await this.cardService.getCardsByName(name._value);
     }
 }
