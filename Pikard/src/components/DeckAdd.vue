@@ -30,11 +30,14 @@ const addDeck = async() => {
     <form>
         <label for="name">Nom du card</label>
         <!-- v-model="nom.name" -->
-        <input type="text" id="name" v-model="cardName" @input="addDeck" />
-        <ul v-if="cards.length" v-for="card in cards[0]" :id="card.id">
+        <input type="text" id="name" list="cards-list" v-model="cardName" @input="addDeck" />
+        <!-- <datalist id="cards-list">
+            <option v-if="cards[0]" v-for="card in cards" :key="card.id" :value="card.name"></option>
+        </datalist> -->
+        <ul v-if="cards[0]" v-for="card in cards[0]" :id="card.id">
             <li> 8 {{card}}</li>
         </ul>
-        <p v-else> recherche pokemon et ajout dans ton deck </p>
+        <!-- <p v-else> recherche pokemon et ajout dans ton deck ecrivez ou moins 5 caracteres </p> -->
         <!-- <button type="submit">Ajouter</button> -->
     </form>
 

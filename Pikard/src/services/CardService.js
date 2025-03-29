@@ -21,8 +21,13 @@ export class CardService {
         return await this.apiService.getCards(id);
     }
 
-    async getCardsByName(velur) {
+    async getCardsByName(valeur) {
         //console.log(name.name);
-        return await this.apiService.getCards("?name=like:"+velur);
+        if (valeur.length>4){
+            return await this.apiService.getCards("?name=like:"+valeur);
+        }
+        else{
+            return null;
+        }
     }
 }
