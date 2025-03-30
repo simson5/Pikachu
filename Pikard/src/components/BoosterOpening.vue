@@ -15,10 +15,13 @@ const localStorageP = new LocalStorageService();
 // ca prend 10sec a charger
 
 const fetchOpening = async () => {
+    console.log("id", id);
     let idPokemon = await boosterService.getRandomCard(id);
     opening.value = await cardService.getCard(idPokemon);
     console.log(opening.value, "sisi");
-    localStorageP.setLocalStorageCards(opening.value);
+    let existingCards = localStorageP.getLocalStorageCards("pikachu") || [];
+    existingCards.push(opening.value);
+    localStorageP.setLocalStorageCards(existingCards);
 }
 
 onMounted(fetchOpening);

@@ -11,15 +11,23 @@ const fetchDeck = async() => {
     console.log(decks.value, "deks disponibles");
 }
 
-onMounted(fetchDeck);
+const recevoirDeck = (id) => {
+    console.log(id, "deck id envoyer pour suppression");
+    deckService.removeDeck(id);
+    console.log(decks.value, "decks apres suppression");
+}
+
+onMounted(fetchDeck, recevoirDeck);
 
 </script>
 
 <template>
     <h1>My decks</h1>
     <p v-if="decks.length"> il y a {{ decks.length }} decks disponibles </p>
+    <!-- <button type="submit">ajouter deck</button> -->
+    <RouterLink to="/deckAdd">Ajouter un deck</RouterLink>
 
-    <SetDeck v-if="decks.length" v-for="deck in decks" :deck="deck" :decks="decks" :key="deck.id" />
+    <SetDeck v-if="decks.length" v-for="deck in decks" :deck="deck" :decks="decks" :key="deck.id" @deleteDeck="recevoirDeck"/>
 
     <p v-else> Wait a moment </p>
 </template>

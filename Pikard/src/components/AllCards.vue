@@ -54,7 +54,7 @@ fetchCards();
     <option value="10">10</option>
     <option value="25">25</option>
     <option value="50">50</option>
-    <option :value="totalCards">Toutes</option>
+    <option value="100">100</option>
   </select>
 
   <div class="container">
@@ -62,10 +62,10 @@ fetchCards();
     <p v-else-if="errorMessage">{{ errorMessage }}</p>
     
     <template v-else-if="allCards.length">
-      <div v-for="card in allCards" :key="card.id" class="card" @click="goToCardDetails(card.id)">
-        <img :src="card.image" :alt="card.name" class="card-image" />
-        <h3>{{ card.name }}</h3>
-      </div>
+        <div v-for="card in allCards" :key="card.id" class="card" @click="goToCardDetails(card.id)">
+          <img :src="`${card.image}/low.png`" :alt="card.name" class="card-image" />
+          <h3>{{ card.name }}</h3>
+        </div>
     </template>
     
     <p v-else>Aucune carte trouvée</p>
@@ -92,5 +92,17 @@ fetchCards();
 }
 button {
   margin: 0 10px;
+}
+.card {
+    border: 1px solid black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+}
+.card-image {
+    width: 200px;
+    height: 200px;
 }
 </style>

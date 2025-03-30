@@ -21,7 +21,21 @@ export class DeckService {
     }
 
     async getDeck() {
-        return await this.apiService.getCards("");
+        try {
+            const response = await fetch(`${this.urlBase}/decks`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            });
+            if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Failed to fetch decks:", error);
+            throw error;
+        }
     }
 
     // cardDeck ce les cartes du deck je les recuperes et au lieu de avoir que id on a tt info sur
@@ -31,8 +45,8 @@ export class DeckService {
         console.log(id, "id");
         console.log(deck, "deck");
         for (let i = 0; i < deck[id].cards.length; i++) {
-            console.log(deck[id].cards[i]);
-            cardDeck.push(await this.cardService.getCard(deck[id].cards[i]));
+            console.log(deck[id].cards[i], "cart ds for");
+            cardDeck.push(await this.cardService.getCard("/"+deck[id].cards[i]));
         }
         console.log(cardDeck, "cardDeck");
         
@@ -52,5 +66,21 @@ export class DeckService {
     // card est un JSON
     addCardInDeck(card, id) {
         return this.apiService.postCards(card, "PUT", id);
+    }
+
+    async rechercheCard(name) {
+        // mm pas besoin de ca 
+        console.log(name._value, "nom de recherch")
+        return await this.cardService.getCardsByName(name._value);
+    }
+
+    async ajouterDeck(deck) {
+        const rep = await this.apiService.postCards(deck, "POST", "");
+        console.log(rep, "rep de post");
+    }
+
+    async removeDeck(id) {
+        const rep = await this.apiService.deleteCards("/"+id);
+        console.log(rep, "rep de delete");
     }
 }

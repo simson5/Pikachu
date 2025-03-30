@@ -1,20 +1,29 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { LocalStorageService } from '../services/LocalStorageService';
 
 const home = ref([]);
 const localStorageP = new LocalStorageService();
-home.value = localStorageP.getLocalStorageCards();
 
+onMounted(() => {
+    let rawData = localStorageP.getLocalStorageCards();
+    console.log("Données brutes récupérées :", rawData);
+
+    // 🔥 Aplatir les éventuels tableaux imbriqués
+    home.value = rawData.flat(Infinity); 
+
+    console.log("Cartes après flatten :", home.value);
+});
 </script>
+
+
 
 <template>
     <h1>Home</h1>
     <div class="container">
         <div class="card" v-if = "home.length!=0" v-for="carte in home" :key="carte?.id">
             <p v-if="carte!=null">Nom de carte : {{ carte.name }}</p>
-            <p v-if="carte!=null">Nombre de occurence : {{ carte.occ }}</p>
-            <img v-if="carte!=null" :src="`${carte.image}/high.png`" alt="image non charger" class="card-image" />
+            <img v-if="carte?.image" :src="`${carte.image}/high.png`" alt="image non chargée" class="card-image" />
         </div>
         <p v-else>pas de carte pour l'instant</p>
     </div>

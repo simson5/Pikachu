@@ -24,7 +24,7 @@ export class CardService {
   }
 
   async getCard(id) {
-    const url = `/${id}`;
+    const url = `${id}`;
     return await this.apiService.getCards(url);
   }
 }

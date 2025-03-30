@@ -1,7 +1,14 @@
 <script setup>
 import { defineProps } from 'vue';
+import {defineEmits} from 'vue';
 
 defineProps(['deck', 'decks']);
+const emit = defineEmits(['deleteDeck']);
+
+const envoyerParent = (id) => {
+    emit('deleteDeck', id);
+    console.log(id, "deck id envoyer pour suppression");
+}
 // console.log(deck, "deck");
 // console.log(decks, "decks");
 // console.log(decks.indexOf(deck), "index of deck");
@@ -16,6 +23,7 @@ defineProps(['deck', 'decks']);
             <p>id : {{ deck.id }}</p>
         </div>
     </RouterLink>
+    <button @click="envoyerParent(deck.id)">Supprimer le deck</button>
 </template>
 
 <style scoped>
