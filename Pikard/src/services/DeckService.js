@@ -13,7 +13,7 @@ export class DeckService {
     }
 
     getUrl() {
-        return this.baseUrl;
+        return this.urlBase;
     }
 
     getApiService() {
@@ -22,7 +22,7 @@ export class DeckService {
 
     async getDeck() {
         try {
-            const response = await fetch(`${this.urlBase}/decks`, {
+            const response = await fetch(`${this.urlBase}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -40,23 +40,31 @@ export class DeckService {
 
     // cardDeck ce les cartes du deck je les recuperes et au lieu de avoir que id on a tt info sur
     async getDeckById(id) {
-        let deck = await this.getDeck();
-        let cardDeck=[];
-        console.log(id, "id");
-        console.log(deck, "deck");
-        for (let i = 0; i < deck[id].cards.length; i++) {
-            console.log(deck[id].cards[i], "cart ds for");
-            cardDeck.push(await this.cardService.getCard("/"+deck[id].cards[i]));
+        let decks = await this.getDeck();
+        let cardDeck = [];
+    
+        let deck = decks.find(d => d.id == id);
+        if (!deck) {
+            console.error(`Aucun deck trouvé avec l'ID: ${id}`);
+            return null;
         }
-        console.log(cardDeck, "cardDeck");
-        
+    
+        for (let cardId of deck.cards) {
+            console.log(cardId, "carte trouvée dans le deck");
+            let fullCard = await this.cardService.getCard("/" + cardId);
+            cardDeck.push(fullCard);
+        }
+    
+        console.log(cardDeck, "Cartes du deck");
+    
         return {
-            "idUser": deck[id].idUser,
-            "name": deck[id].name,
-            "cards": cardDeck,
-            "id": deck[id].id
+            idUser: deck.idUser,
+            name: deck.name,
+            cards: cardDeck,
+            id: deck.id
         };
     }
+    
 
     addDeck(deck) {
         return this.apiService.postCards(deck, "POST", "");

@@ -6,7 +6,7 @@ import MonDeck from './MonDeck.vue';
 
 const cards = ref([]);
 const deck = ref([]);
-const cardName = defineModel();
+const cardName = ref(''); // Utilise ref() pour créer une variable réactive
 const localStorageP = new LocalStorageService();
 deck.value = localStorageP.getLocalStorageCards("deck");
 cards.value = localStorageP.getLocalStorageCards("pikachu");
@@ -38,20 +38,26 @@ const addDeck = async() => {
     }
 }
 
-function addPokemon(card){
-    console.log(card.id, "selectioner");
+function addPokemon(card) {
+    if (!deck.value) deck.value = [];
+    
+    console.log(card.id, "Sélectionnée");
+    
     deck.value.push({
         id: card.id,
         name: card.name,
         image: card.image,
     });
-    localStorageP.setLocalStorageCardsWithOutOcc("deck",deck.value);
-    console.log(deck.value, "deck ajoute");
+
+    localStorageP.setLocalStorageCardsWithOutOcc("deck", deck.value);
+    console.log(deck.value, "Deck après ajout");
+
     cardName.value = "";
-    cards.value=localStorageP.getLocalStorageCards("pikachu");
-    const derulant = document.querySelector(".listDerulant");
-    derulant.setAttribute('style', `background-color: aquamarine;`);
+    cards.value = localStorageP.getLocalStorageCards("pikachu");
+
+    document.querySelector(".listDerulant").style.backgroundColor = "aquamarine";
 }
+
 
 const addPokemonInApi = async() => {
     console.log(deck.value, "deck envoyer dans l'api");

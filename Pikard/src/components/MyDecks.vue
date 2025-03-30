@@ -6,10 +6,16 @@ import SetDeck from './SetDeck.vue';
 const decks = ref([]);
 const deckService = new DeckService("https://67b8eac151192bd378dc35a6.mockapi.io/decks");
 
-const fetchDeck = async() => {
-    decks.value = await deckService.getDeck();
-    console.log(decks.value, "deks disponibles");
-}
+const fetchDeck = async () => {
+    try {
+        console.log("Récupération des decks...");
+        decks.value = await deckService.getDeck();
+        console.log("Decks récupérés :", decks.value);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des decks :", error);
+    }
+};
+
 
 const recevoirDeck = (id) => {
     console.log(id, "deck id envoyer pour suppression");
@@ -17,7 +23,9 @@ const recevoirDeck = (id) => {
     console.log(decks.value, "decks apres suppression");
 }
 
-onMounted(fetchDeck, recevoirDeck);
+onMounted(() => {
+    fetchDeck();
+});
 
 </script>
 

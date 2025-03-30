@@ -1,9 +1,9 @@
 <script setup>
 import { defineProps } from 'vue';
 
-const p = defineProps(['card']);
-console.log(p, "props");
-console.log(p.id, "id card");
+const props = defineProps(['card']);
+console.log(props, "props");
+console.log(props.card.id, "id card");
 </script>
 
 <template>
