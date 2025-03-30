@@ -4,7 +4,7 @@ import { LocalStorageService } from '../services/LocalStorageService';
 
 const home = ref([]);
 const localStorageP = new LocalStorageService();
-home.value = localStorageP.getLocalStorageCards();
+home.value = localStorageP.getLocalStorageCards("pikachu");
 
 </script>
 

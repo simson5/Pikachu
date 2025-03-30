@@ -60,7 +60,7 @@ export class ApiService {
     
     // truc va comprendre un id precise aussi pour identifier
     async deleteCards(truc) {
-        console.log(this.baseUrl+truc);
+        console.log(this.baseUrl+truc, "delete truc");
         const reponse = await fetch(this.baseUrl+truc, { method: "DELETE" });
 
         if (!reponse.ok) {

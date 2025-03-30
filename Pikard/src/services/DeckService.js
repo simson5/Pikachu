@@ -55,7 +55,18 @@ export class DeckService {
     }
 
     async rechercheCard(name) {
+        // mm pas besoin de ca 
         console.log(name._value, "nom de recherch")
         return await this.cardService.getCardsByName(name._value);
+    }
+
+    async ajouterDeck(deck) {
+        const rep = await this.apiService.postCards(deck, "POST", "");
+        console.log(rep, "rep de post");
+    }
+
+    async removeDeck(id) {
+        const rep = await this.apiService.deleteCards("/"+id);
+        console.log(rep, "rep de delete");
     }
 }

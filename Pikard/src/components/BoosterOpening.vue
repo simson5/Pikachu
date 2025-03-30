@@ -18,7 +18,7 @@ const fetchOpening = async () => {
     let idPokemon = await boosterService.getRandomCard(id);
     opening.value = await cardService.getCard(idPokemon);
     console.log(opening.value, "sisi");
-    localStorageP.setLocalStorageCards(opening.value);
+    localStorageP.setLocalStorageCards("pikachu",opening.value);
 }
 
 onMounted(fetchOpening);
