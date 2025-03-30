@@ -1,13 +1,19 @@
 export class LocalStorageService {
-  localStorageKey;
-  localStorageCards;
+  static getItem(key, defaultValue = null) {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : defaultValue;
+  }
+
+  static setItem(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
 
   constructor() {
-      this.localStorageKey = "pikachu";
+    this.localStorageKey = "pikachu";
   }
 
   getLocalStorageCards() {
-      return JSON.parse(window.localStorage.getItem(this.localStorageKey)) || [];
+    return JSON.parse(window.localStorage.getItem(this.localStorageKey)) || [];
   }
 
   setLocalStorageCards(card) {
@@ -15,6 +21,7 @@ export class LocalStorageService {
     let data = this.getLocalStorageCards();
     let existingCard = data.find(item => item.id === card.id);
     console.log(existingCard, "existe ou pas");
+
     if (existingCard) {
       existingCard.occ += 1;
       Object.assign(existingCard, card);
@@ -22,7 +29,8 @@ export class LocalStorageService {
       card.occ = 1;
       data.push(card);
     }
+    
     window.localStorage.setItem(this.localStorageKey, JSON.stringify(data));
-    this.localStorageCards = data; // Update the local copy
+    this.localStorageCards = data; // Update local copy
   }
 }

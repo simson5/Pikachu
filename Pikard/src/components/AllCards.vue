@@ -1,18 +1,21 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed } from 'vue';
+import { LocalStorageService } from '../services/LocalStorageService.js';
 import { CardService } from '../services/CardService.js';
-import Card from './Card.vue';
 
 const allCards = ref([]);
 const currentPage = ref(1);
-const itemsPerPage = ref(localStorage.getItem('itemsPerPage') || 10);
+const itemsPerPage = ref(LocalStorageService.getItem('itemsPerPage', 10));  // Utilisation de LocalStorageService pour récupérer la valeur
 const totalCards = ref(0);
+const loading = ref(true);
+
 const cardService = new CardService("https://api.tcgdex.net/v2/fr/cards");
 
 const fetchCards = async () => {
-  const response = await cardService.getCards(`?limit=100`);
+  const response = await cardService.getCards(currentPage.value, itemsPerPage.value);
   allCards.value = response;
   totalCards.value = response.length;
+  loading.value = false;
 };
 
 const paginatedCards = computed(() => {
@@ -25,8 +28,9 @@ const totalPages = computed(() => Math.ceil(totalCards.value / itemsPerPage.valu
 
 const changeItemsPerPage = (event) => {
   itemsPerPage.value = event.target.value;
-  localStorage.setItem('itemsPerPage', itemsPerPage.value);
+  localStorage.setItem('itemsPerPage', itemsPerPage.value);  // Sauvegarde de la valeur dans le localStorage
   currentPage.value = 1;
+  fetchCards();
 };
 
 const nextPage = () => {
@@ -37,11 +41,11 @@ const prevPage = () => {
   if (currentPage.value > 1) currentPage.value--;
 };
 
-onMounted(fetchCards);
+fetchCards();
 </script>
 
 <template>
-  <h1>All cards</h1>
+  <h1>All Cards</h1>
 
   <h3 v-if="totalCards">Il y a {{ totalCards }} cartes</h3>
 
@@ -54,8 +58,17 @@ onMounted(fetchCards);
   </select>
 
   <div class="container">
-    <Card v-if="paginatedCards.length" v-for="card in paginatedCards" :key="card.id" :card="card" />
-    <h3 v-else>Wait a moment</h3>
+    <p v-if="loading">Chargement...</p>
+    <p v-else-if="errorMessage">{{ errorMessage }}</p>
+    
+    <template v-else-if="allCards.length">
+      <div v-for="card in allCards" :key="card.id" class="card" @click="goToCardDetails(card.id)">
+        <img :src="card.image" :alt="card.name" class="card-image" />
+        <h3>{{ card.name }}</h3>
+      </div>
+    </template>
+    
+    <p v-else>Aucune carte trouvée</p>
   </div>
 
   <div class="pagination">
@@ -64,6 +77,7 @@ onMounted(fetchCards);
     <button @click="nextPage" :disabled="currentPage >= totalPages">Suivant</button>
   </div>
 </template>
+
 
 <style scoped>
 .container {
